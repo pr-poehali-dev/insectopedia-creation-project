@@ -42,8 +42,10 @@ const Index = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const insectsResponse = await fetch('https://functions.poehali.dev/9e937009-48dc-4ba4-bf1b-feed78d76895');
-        const ordersResponse = await fetch('https://functions.poehali.dev/ff045486-aeff-431b-9db5-745d1bca4fb9');
+        const [insectsResponse, ordersResponse] = await Promise.all([
+          fetch('https://functions.poehali.dev/9e937009-48dc-4ba4-bf1b-feed78d76895'),
+          fetch('https://functions.poehali.dev/ff045486-aeff-431b-9db5-745d1bca4fb9')
+        ]);
         
         if (insectsResponse.ok) {
           const data = await insectsResponse.json();

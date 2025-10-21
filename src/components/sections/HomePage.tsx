@@ -62,22 +62,24 @@ const HomePage = ({ insects, onNavigate }: HomePageProps) => {
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Избранные статьи</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {insects.slice(0, 3).map((insect) => (
-            <div key={insect.id} className="border-b last:border-b-0 pb-4 last:pb-0">
-              <h3 className="text-lg font-semibold text-primary hover:underline cursor-pointer">
-                {insect.name_ru}
-              </h3>
-              <p className="text-sm italic text-muted-foreground">{insect.name_latin}</p>
-              <p className="mt-2 text-sm line-clamp-2">{insect.description}</p>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      {insects.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Избранные статьи</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {insects.slice(0, 3).map((insect) => (
+              <div key={insect.id} className="border-b last:border-b-0 pb-4 last:pb-0">
+                <h3 className="text-lg font-semibold text-primary hover:underline cursor-pointer">
+                  {insect.name_ru}
+                </h3>
+                <p className="text-sm italic text-muted-foreground">{insect.name_latin}</p>
+                <p className="mt-2 text-sm line-clamp-2">{insect.description}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card>

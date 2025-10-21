@@ -1,0 +1,15 @@
+{
+  "tests": [
+    {
+      "name": "Send contact message",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test@example.com",
+        "subject": "Тестовое сообщение",
+        "message": "Это тестовое сообщение для проверки работы формы обратной связи"
+      },
+      "expectedStatus": 200
+    }
+  ]
+}
