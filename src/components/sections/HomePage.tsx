@@ -25,7 +25,14 @@ const HomePage = ({ insects, onNavigate }: HomePageProps) => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onNavigate('encyclopedia')}>
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden" onClick={() => onNavigate('encyclopedia')}>
+          <div className="h-48 overflow-hidden">
+            <img 
+              src="https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/ff2b9d67-225e-4c1e-9382-9adaac2b8bad.jpg" 
+              alt="Энциклопедия" 
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
           <CardHeader>
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <Icon name="BookOpen" className="text-primary" size={24} />
@@ -37,7 +44,14 @@ const HomePage = ({ insects, onNavigate }: HomePageProps) => {
           </CardHeader>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onNavigate('classification')}>
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden" onClick={() => onNavigate('classification')}>
+          <div className="h-48 overflow-hidden">
+            <img 
+              src="https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/e68e7f9a-cbbd-4b7d-a72c-08669c159aec.jpg" 
+              alt="Классификация" 
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
           <CardHeader>
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <Icon name="Network" className="text-primary" size={24} />
@@ -49,7 +63,14 @@ const HomePage = ({ insects, onNavigate }: HomePageProps) => {
           </CardHeader>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => onNavigate('search')}>
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden" onClick={() => onNavigate('search')}>
+          <div className="h-48 overflow-hidden">
+            <img 
+              src="https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/6f122d29-662f-4085-ad32-b51430affa0a.jpg" 
+              alt="Поиск" 
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
           <CardHeader>
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <Icon name="Search" className="text-primary" size={24} />

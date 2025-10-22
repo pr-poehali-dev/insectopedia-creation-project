@@ -21,8 +21,14 @@ const Login = () => {
     setLoading(true);
 
     setTimeout(() => {
+      if (!email || !password) {
+        setError('Заполните все поля.');
+        setLoading(false);
+        return;
+      }
+
       if (!isValidUser(email)) {
-        setError('Аккаунт не найден. Проверьте email.');
+        setError('Аккаунт не найден. Доступ запрещён.');
         setLoading(false);
         return;
       }
@@ -34,7 +40,14 @@ const Login = () => {
       }
 
       const user = getUserByEmail(email);
+      if (!user) {
+        setError('Ошибка авторизации.');
+        setLoading(false);
+        return;
+      }
+
       setCurrentUser(user);
+      setLoading(false);
       navigate('/admin');
     }, 500);
   };

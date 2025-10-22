@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 interface Insect {
@@ -22,6 +24,8 @@ interface EncyclopediaPageProps {
 }
 
 const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
+  const [selectedInsect, setSelectedInsect] = useState<Insect | null>(null);
+
   return (
     <div className="space-y-6">
       <div className="border-l-4 border-primary pl-6 py-4">
@@ -39,8 +43,12 @@ const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
           {insects.map((insect) => (
           <Card key={insect.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <div className="w-full h-48 bg-secondary rounded-md mb-4 flex items-center justify-center">
-                <Icon name="Bug" size={64} className="text-muted-foreground" />
+              <div className="w-full h-48 bg-secondary rounded-md mb-4 flex items-center justify-center overflow-hidden">
+                {insect.image_url ? (
+                  <img src={insect.image_url} alt={insect.name_ru} className="w-full h-full object-cover" />
+                ) : (
+                  <Icon name="Bug" size={64} className="text-muted-foreground" />
+                )}
               </div>
               <CardTitle className="text-xl">{insect.name_ru}</CardTitle>
               <CardDescription className="italic">{insect.name_latin}</CardDescription>
@@ -73,7 +81,7 @@ const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
                   <Icon name="Eye" size={14} />
                   {insect.views} просмотров
                 </span>
-                <Button variant="link" size="sm" className="h-auto p-0">
+                <Button variant="link" size="sm" className="h-auto p-0" onClick={() => setSelectedInsect(insect)}>
                   Читать далее →
                 </Button>
               </div>
@@ -82,6 +90,73 @@ const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
           ))}
         </div>
       )}
+
+      <Dialog open={!!selectedInsect} onOpenChange={() => setSelectedInsect(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          {selectedInsect && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{selectedInsect.name_ru}</DialogTitle>
+                <DialogDescription className="italic text-lg">{selectedInsect.name_latin}</DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                <div className="w-full h-64 bg-secondary rounded-md flex items-center justify-center overflow-hidden">
+                  {selectedInsect.image_url ? (
+                    <img src={selectedInsect.image_url} alt={selectedInsect.name_ru} className="w-full h-full object-cover" />
+                  ) : (
+                    <Icon name="Bug" size={96} className="text-muted-foreground" />
+                  )}
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Описание</h3>
+                  <p className="text-muted-foreground">{selectedInsect.description}</p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon name="Ruler" size={20} className="text-primary" />
+                      <h4 className="font-semibold">Размер</h4>
+                    </div>
+                    <p className="text-muted-foreground">{selectedInsect.size_mm} мм</p>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon name="Clock" size={20} className="text-primary" />
+                      <h4 className="font-semibold">Продолжительность жизни</h4>
+                    </div>
+                    <p className="text-muted-foreground">{selectedInsect.lifespan}</p>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon name="MapPin" size={20} className="text-primary" />
+                      <h4 className="font-semibold">Ареал обитания</h4>
+                    </div>
+                    <p className="text-muted-foreground">{selectedInsect.habitat}</p>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon name="Utensils" size={20} className="text-primary" />
+                      <h4 className="font-semibold">Питание</h4>
+                    </div>
+                    <p className="text-muted-foreground">{selectedInsect.diet}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-muted-foreground pt-4 border-t">
+                  <Icon name="Eye" size={16} />
+                  <span>{selectedInsect.views} просмотров</span>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
