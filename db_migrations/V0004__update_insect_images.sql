@@ -1,0 +1,17 @@
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/760b5423-8ba0-490f-a20d-eb727908b7af.jpg' WHERE id = 1;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/6f122d29-662f-4085-ad32-b51430affa0a.jpg' WHERE id = 2;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/3e4940a9-b714-4021-ae72-a7ded9c4104b.jpg' WHERE id = 3;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/ff2b9d67-225e-4c1e-9382-9adaac2b8bad.jpg' WHERE id = 4;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/21ab8158-9740-4400-a81d-73d757a3b212.jpg' WHERE id = 5;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/f58fa4ba-415d-4d24-bdca-b8e204fb523b.jpg' WHERE id = 6;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/ba069396-630d-4c18-b4ab-e2780b501050.jpg' WHERE id = 7;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/6c7509b0-7185-431d-b3a4-19f4db5357ff.jpg' WHERE id = 8;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/3a89cb53-0cbb-4317-999e-d8421b5caf38.jpg' WHERE id = 9;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/7a007088-0580-4411-a80f-7fd40430d17d.jpg' WHERE id = 10;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/9e09ec37-7e34-4b78-aac4-bd2976d98b3f.jpg' WHERE id = 11;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/b3c62078-b613-472d-a44a-c57b0b4a4442.jpg' WHERE id = 12;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/d910736f-b063-47f5-a25d-6cab754f05d8.jpg' WHERE id = 13;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/01b1168e-b0ed-44ad-800b-bd7f9b3e747e.jpg' WHERE id = 14;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/a9be59fc-9e4f-4dae-9e79-6cc53f0cd305.jpg' WHERE id = 15;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/74726530-ab96-42c3-8877-5eea5149dbb7.jpg' WHERE id = 16;
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/25519432-3f0a-4990-a3b4-824534c3fea7.jpg' WHERE id = 17;
