@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HomePage from '@/components/sections/HomePage';
@@ -8,6 +9,9 @@ import SearchPage from '@/components/sections/SearchPage';
 import ContactPage from '@/components/sections/ContactPage';
 import AboutPage from '@/components/sections/AboutPage';
 import ProfilePage from '@/components/sections/ProfilePage';
+import { getCurrentUser, isAdmin } from '@/lib/auth';
+import { Button } from '@/components/ui/button';
+import Icon from '@/components/ui/icon';
 
 interface Insect {
   id: number;
@@ -32,12 +36,14 @@ interface InsectOrder {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('home');
   const [insects, setInsects] = useState<Insect[]>([]);
   const [orders, setOrders] = useState<InsectOrder[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [showAdminButton, setShowAdminButton] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +68,11 @@ const Index = () => {
     };
 
     fetchData();
+
+    const user = getCurrentUser();
+    if (user && isAdmin(user.email)) {
+      setShowAdminButton(true);
+    }
   }, []);
 
   const filteredInsects = insects.filter(insect =>
@@ -86,6 +97,19 @@ const Index = () => {
         username={username}
         onNavigate={setActiveSection}
       />
+
+      {showAdminButton && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <Button 
+            onClick={() => navigate('/admin')}
+            size="lg"
+            className="shadow-lg"
+          >
+            <Icon name="Shield" size={20} className="mr-2" />
+            Админ панель
+          </Button>
+        </div>
+      )}
 
       <main className="flex-1 container mx-auto px-4 py-8">
         {activeSection === 'home' && (

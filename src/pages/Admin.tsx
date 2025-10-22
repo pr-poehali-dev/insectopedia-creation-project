@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -9,9 +10,30 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { getCurrentUser, isAdmin, logout } from '@/lib/auth';
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (!user || !isAdmin(user.email)) {
+      navigate('/login');
+      return;
+    }
+    setCurrentUser(user);
+  }, [navigate]);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  if (!currentUser) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -47,11 +69,14 @@ const Admin = () => {
         <header className="flex h-16 items-center justify-between border-b px-6">
           <h1 className="text-2xl font-bold">Дашборд</h1>
           <div className="flex items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              {currentUser.name}
+            </div>
             <Button variant="outline" size="icon">
               <Icon name="Bell" size={20} />
             </Button>
-            <Button variant="outline" size="icon">
-              <Icon name="User" size={20} />
+            <Button variant="outline" size="icon" onClick={handleLogout}>
+              <Icon name="LogOut" size={20} />
             </Button>
           </div>
         </header>
