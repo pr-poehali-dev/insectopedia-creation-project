@@ -89,6 +89,31 @@ const Index = () => {
     setIsLoggedIn(false);
   };
 
+  const handleInsectViewed = async (insectId: number) => {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/9e937009-48dc-4ba4-bf1b-feed78d76895', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Id': user.email
+        },
+        body: JSON.stringify({ insect_id: insectId })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setInsects(prev => prev.map(insect => 
+          insect.id === insectId ? { ...insect, views: result.views } : insect
+        ));
+      }
+    } catch (error) {
+      console.error('Error incrementing views:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header 
@@ -116,7 +141,7 @@ const Index = () => {
           <HomePage insects={insects} onNavigate={setActiveSection} />
         )}
         {activeSection === 'encyclopedia' && (
-          <EncyclopediaPage insects={insects} />
+          <EncyclopediaPage insects={insects} onInsectViewed={handleInsectViewed} />
         )}
         {activeSection === 'classification' && (
           <ClassificationPage insects={insects} orders={orders} />

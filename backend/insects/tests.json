@@ -5,6 +5,18 @@
       "method": "GET",
       "path": "/",
       "expectedStatus": 200
+    },
+    {
+      "name": "Increment insect views",
+      "method": "POST",
+      "body": {
+        "insect_id": 1
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "views": "number"
+      },
+      "bodyMatcher": "partial"
     }
   ]
 }

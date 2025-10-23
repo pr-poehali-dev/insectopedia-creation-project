@@ -21,10 +21,18 @@ interface Insect {
 
 interface EncyclopediaPageProps {
   insects: Insect[];
+  onInsectViewed?: (insectId: number) => void;
 }
 
-const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
+const EncyclopediaPage = ({ insects, onInsectViewed }: EncyclopediaPageProps) => {
   const [selectedInsect, setSelectedInsect] = useState<Insect | null>(null);
+  
+  const handleInsectOpen = (insect: Insect) => {
+    setSelectedInsect(insect);
+    if (onInsectViewed) {
+      onInsectViewed(insect.id);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -81,7 +89,7 @@ const EncyclopediaPage = ({ insects }: EncyclopediaPageProps) => {
                   <Icon name="Eye" size={14} />
                   {insect.views} просмотров
                 </span>
-                <Button variant="link" size="sm" className="h-auto p-0" onClick={() => setSelectedInsect(insect)}>
+                <Button variant="link" size="sm" className="h-auto p-0" onClick={() => handleInsectOpen(insect)}>
                   Читать далее →
                 </Button>
               </div>
