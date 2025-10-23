@@ -1,0 +1,3 @@
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/d81cb763-36d3-4b22-baeb-46ee09c4fae8.jpg' WHERE id = 9 AND name_ru = 'Жук-носорог';
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/220bfbfb-8e8e-409d-965c-d9d54d2d2078.jpg' WHERE id = 11 AND name_ru = 'Шмель земляной';
+UPDATE insects SET image_url = 'https://cdn.poehali.dev/projects/5de75cfc-8574-4ae6-9f1a-335c99a84f26/files/04f2f328-f348-4c08-b4e4-e30de3e5fb00.jpg' WHERE id = 18 AND name_ru = 'Осмия рыжая';
