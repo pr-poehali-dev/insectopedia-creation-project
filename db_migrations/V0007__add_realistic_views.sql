@@ -1,0 +1,17 @@
+UPDATE insects SET views = 1247 WHERE id = 1;
+UPDATE insects SET views = 2134 WHERE id = 2;
+UPDATE insects SET views = 1876 WHERE id = 3;
+UPDATE insects SET views = 3421 WHERE id = 4;
+UPDATE insects SET views = 892 WHERE id = 5;
+UPDATE insects SET views = 1543 WHERE id = 6;
+UPDATE insects SET views = 1098 WHERE id = 7;
+UPDATE insects SET views = 2567 WHERE id = 8;
+UPDATE insects SET views = 1789 WHERE id = 9;
+UPDATE insects SET views = 2891 WHERE id = 10;
+UPDATE insects SET views = 1456 WHERE id = 11;
+UPDATE insects SET views = 2012 WHERE id = 12;
+UPDATE insects SET views = 3156 WHERE id = 13;
+UPDATE insects SET views = 1634 WHERE id = 14;
+UPDATE insects SET views = 987 WHERE id = 15;
+UPDATE insects SET views = 2345 WHERE id = 16;
+UPDATE insects SET views = 1723 WHERE id = 17;
