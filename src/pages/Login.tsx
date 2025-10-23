@@ -6,50 +6,68 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import Icon from '@/components/ui/icon';
-import { isValidUser, getUserByEmail, setCurrentUser } from '@/lib/auth';
+import { setCurrentUser } from '@/lib/auth';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    setTimeout(() => {
-      if (!email || !password) {
-        setError('Заполните все поля.');
-        setLoading(false);
-        return;
-      }
-
-      if (!isValidUser(email)) {
-        setError('Аккаунт не найден. Доступ запрещён.');
-        setLoading(false);
-        return;
-      }
-
-      if (password.length < 6) {
-        setError('Неверный пароль.');
-        setLoading(false);
-        return;
-      }
-
-      const user = getUserByEmail(email);
-      if (!user) {
-        setError('Ошибка авторизации.');
-        setLoading(false);
-        return;
-      }
-
-      setCurrentUser(user);
+    if (!email || !password || (isRegisterMode && !name)) {
+      setError('Заполните все поля.');
       setLoading(false);
-      navigate('/admin');
-    }, 500);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Пароль должен быть минимум 6 символов.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/3c7f3fd9-ee75-4619-a5dc-40c99bad5de7', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: isRegisterMode ? 'register' : 'login',
+          email,
+          password,
+          ...(isRegisterMode && { name })
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.error || 'Ошибка при выполнении запроса');
+        setLoading(false);
+        return;
+      }
+
+      if (result.success && result.user) {
+        setCurrentUser(result.user);
+        setLoading(false);
+        navigate('/');
+      } else {
+        setError('Ошибка авторизации');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Ошибка соединения с сервером');
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,9 +79,11 @@ const Login = () => {
               <Icon name="Lock" size={24} className="text-primary-foreground" />
             </div>
           </div>
-          <CardTitle className="text-2xl text-center">Вход в систему</CardTitle>
+          <CardTitle className="text-2xl text-center">
+            {isRegisterMode ? 'Регистрация' : 'Вход в систему'}
+          </CardTitle>
           <CardDescription className="text-center">
-            Введите данные для доступа к админ-панели
+            {isRegisterMode ? 'Создайте новый аккаунт' : 'Введите данные для входа'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -73,6 +93,20 @@ const Login = () => {
                 <Icon name="AlertCircle" size={16} />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
+            )}
+
+            {isRegisterMode && (
+              <div className="space-y-2">
+                <Label htmlFor="name">Имя</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Ваше имя"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required={isRegisterMode}
+                />
+              </div>
             )}
 
             <div className="space-y-2">
@@ -97,25 +131,38 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {isRegisterMode && (
+                <p className="text-xs text-muted-foreground">Минимум 6 символов</p>
+              )}
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
                 <>
                   <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
-                  Вход...
+                  {isRegisterMode ? 'Регистрация...' : 'Вход...'}
                 </>
               ) : (
                 <>
-                  <Icon name="LogIn" size={16} className="mr-2" />
-                  Войти
+                  <Icon name={isRegisterMode ? 'UserPlus' : 'LogIn'} size={16} className="mr-2" />
+                  {isRegisterMode ? 'Зарегистрироваться' : 'Войти'}
                 </>
               )}
             </Button>
 
-            <p className="text-xs text-center text-muted-foreground mt-4">
-              Доступ только для авторизованных администраторов
-            </p>
+            <div className="text-center">
+              <Button 
+                type="button"
+                variant="link" 
+                onClick={() => {
+                  setIsRegisterMode(!isRegisterMode);
+                  setError('');
+                }}
+                className="text-sm"
+              >
+                {isRegisterMode ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

@@ -70,8 +70,12 @@ const Index = () => {
     fetchData();
 
     const user = getCurrentUser();
-    if (user && isAdmin(user.email)) {
-      setShowAdminButton(true);
+    if (user) {
+      setIsLoggedIn(true);
+      setUsername(user.name || user.email);
+      if (user.role === 'admin') {
+        setShowAdminButton(true);
+      }
     }
   }, []);
 
@@ -81,12 +85,18 @@ const Index = () => {
   );
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
-    setUsername('Пользователь');
+    const user = getCurrentUser();
+    if (user) {
+      setIsLoggedIn(true);
+      setUsername(user.name || user.email);
+    }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUsername('');
+    setShowAdminButton(false);
+    localStorage.removeItem('currentUser');
   };
 
   const handleInsectViewed = async (insectId: number) => {
